@@ -1,0 +1,58 @@
+
+<div id="wrapper">
+    <input type="search" id="search" placeholder="파일명, 파일 내용, 확장자">
+    <table id="keywords" class="folder_table" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th><span>폴더명</span></th>
+                <th><span>등록 날짜</span></th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<entryObj.folderList.length; ++i) { %>       
+            <tr>
+       
+                <td>
+                    <a href="/storage/<%= entryObj.folderList[i].fol_id %>"> 
+                        <%= entryObj.folderList[i].fol_name %> 
+                    </a>
+                </td>
+                <td>
+                    <%= entryObj.folderList[i].reg_date %>
+                </td>
+            
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+
+    <table id="keywords" class="file_table" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th><span>파일명</span></th>
+                <th><span>등록 날짜</span></th>
+                <th><span>미리보기</span></th>
+                <th><span>다운로드</span></th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<entryObj.fileList.length; ++i) { %>       
+            <tr>
+       
+                <td>
+                    <%= entryObj.fileList[i].file_name %>
+                </td>
+                <td>
+                    <%= entryObj.fileList[i].reg_date %>
+                </td>
+                <td>
+                    <a href="/viewer/<%= entryObj.fileList[i].file_extension %>/<%= entryObj.fileList[i].file_id %>" target="_blank"> 미리보기 </a> 
+                </td>
+                <td>
+                    <a href="<%=entryObj.fileList[i].co_name%>/<%=entryObj.fileList[i].file_path%>" download> 다운로드 </a>
+                </td>    
+            </tr>
+        <% } %>
+        </tbody>
+    </table>     
+</div>

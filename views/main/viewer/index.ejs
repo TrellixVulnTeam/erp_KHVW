@@ -1,0 +1,12 @@
+<% if(file_extension == "pdf") { %> 
+    <iframe src="/lib/viewer/pdfjs/web/viewer.html?file=/storage/<%=path%>" style = "width:100%; height:99vh; border:none;"></iframe>
+<% } else if(file_extension == "hwp") { %>
+
+<% } else if(file_extension == "pptx"){ %>
+    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=http://localhost:3000/storage/<%=path%>" width="800" height="600"></iframe>
+
+<% } else if(file_extension == "csv" || file_extension == "xlsl" ){ %>
+    
+<% } else { %>    
+    <img src="../../storage/<%=path%>" width="1000px" alt="">
+<% } %>
