@@ -2,8 +2,6 @@ const expressLayouts = require('express-ejs-layouts')
 const express = require('express')
 const app = express()
 const path = require('path')
-const cookieParser = require('cookie-parser');
-app.use(cookieParser('fvnslfjslkfjslfjslf'));
 
 const session = require('express-session');	//세션관리용 미들웨어
 app.use(session({

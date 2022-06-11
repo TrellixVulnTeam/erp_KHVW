@@ -1,1 +1,8 @@
-asd
+<h1>회사를 선택하세요.</h1>
+
+<select id="co_sel">
+    <option value="None"> ::회사를 선택하세요:: </option>
+<% for(let i=0; i<companyObj.length; ++i) { %>
+    <option value="<%= companyObj[i].co_id %>"><%= companyObj[i].co_name %></option>
+<% } %>
+</select>

@@ -1,3 +1,5 @@
+
+
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
@@ -41,6 +43,6 @@ handleDisconnect();
 
 setInterval(() => { 
   db.query('SELECT 1'); 
-}, 10000);
+}, 5000);
 
 module.exports = db;

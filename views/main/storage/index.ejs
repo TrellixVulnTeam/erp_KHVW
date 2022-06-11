@@ -13,7 +13,7 @@
             <tr>
        
                 <td>
-                    <a href="/storage/<%= entryObj.folderList[i].fol_id %>"> 
+                    <a href="/storage/<%= entryObj.folderList[i].co_id%>/<%= entryObj.folderList[i].fol_id %>"> 
                         <%= entryObj.folderList[i].fol_name %> 
                     </a>
                 </td>
@@ -49,7 +49,7 @@
                     <a href="/viewer/<%= entryObj.fileList[i].file_extension %>/<%= entryObj.fileList[i].file_id %>" target="_blank"> 미리보기 </a> 
                 </td>
                 <td>
-                    <a href="<%=entryObj.fileList[i].co_name%>/<%=entryObj.fileList[i].file_path%>" download> 다운로드 </a>
+                    <a href="/storage/<%=entryObj.fileList[i].file_path%>" download> 다운로드 </a>
                 </td>    
             </tr>
         <% } %>
