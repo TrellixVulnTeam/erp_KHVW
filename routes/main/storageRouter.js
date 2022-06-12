@@ -13,22 +13,9 @@ router.get("/:co_id/:fol_id", (req, res) => {
   })
 })
 
-router.post("/:co_id/:fol_id/ajax", (req, res) => {
+router.post("/:co_id/:fol_id/ajax", (req, res) => {  
   const {value} = req.body
   const {co_id, fol_id} = req.params
-
-
-  const sql = `SELECT f.co_id, c.co_name ,f.file_id, file_path, file_name, file_extension, file_text, f.reg_date FROM files f
-  LEFT JOIN files_text ft ON f.file_id = ft.file_id
-  LEFT JOIN company c ON f.co_id = c.co_id
-  WHERE file_text LIKE '%${value}%' OR file_name LIKE '%${value}%' AND f.co_id = ${co_id}
-  LIMIT 0, 10`
-
-  const searchResult = () => new Promise((resolve, reject) => {
-    db.query(sql, (err, rows) => {  
-      resolve(rows)
-    })
-  })
 
   if(value == "") { 
     
@@ -38,14 +25,13 @@ router.post("/:co_id/:fol_id/ajax", (req, res) => {
     })
   
   } else {
-
-    searchResult().then(fileObj => {
-      entryObj = {fileList : fileObj} 
-      entryObj.type = "search"
-      res.json(entryObj) 
+    
+    Entry.search(co_id, value).then(searchObj => {
+      searchObj.type = "search"
+      console.log(searchObj)
+      res.json(searchObj) 
     })
   }
-    
 })
 
 module.exports = router;

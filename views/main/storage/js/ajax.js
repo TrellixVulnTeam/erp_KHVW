@@ -18,16 +18,16 @@ window.addEventListener("keyup", () => {
         xhr.send(data)
         
         xhr.addEventListener('load', () => {
-            const entryObj = JSON.parse(xhr.responseText)
+            const obj = JSON.parse(xhr.responseText)
             let folder_contents = ''
             let file_contents = ''
-            switch(entryObj.type) {
+            switch(obj.type) {
                 case "reset" :
-                    for(let i=0; i<entryObj.folderList.length; ++i) {
-                        co_id = entryObj.folderList[i].co_id
-                        fol_id = entryObj.folderList[i].fol_id
-                        fol_name = entryObj.folderList[i].fol_name
-                        reg_date = entryObj.folderList[i].reg_date
+                    for(let i=0; i<obj.folderList.length; ++i) {
+                        co_id = obj.folderList[i].co_id
+                        fol_id = obj.folderList[i].fol_id
+                        fol_name = obj.folderList[i].fol_name
+                        reg_date = obj.folderList[i].reg_date
                         folder_contents +=`
                         <tr>        
                             <td>
@@ -43,13 +43,13 @@ window.addEventListener("keyup", () => {
 
                     folder_table.innerHTML = folder_contents
 
-                    for(let i=0; i<entryObj.fileList.length; ++i) {
-                        file_id = entryObj.fileList[i].file_id
-                        fol_id = entryObj.fileList[i].fol_id
-                        file_name = entryObj.fileList[i].file_name
-                        file_extension = entryObj.fileList[i].file_extension
-                        file_path = entryObj.fileList[i].file_path
-                        reg_date = entryObj.fileList[i].reg_date
+                    for(let i=0; i<obj.fileList.length; ++i) {
+                        file_id = obj.fileList[i].file_id
+                        fol_id = obj.fileList[i].fol_id
+                        file_name = obj.fileList[i].file_name
+                        file_extension = obj.fileList[i].file_extension
+                        file_path = obj.fileList[i].file_path
+                        reg_date = obj.fileList[i].reg_date
                         
                         file_contents += `
                         <tr>
@@ -74,15 +74,15 @@ window.addEventListener("keyup", () => {
 
                 case "search" :                    
                     folder_table.innerHTML = folder_contents
-
-                    for(let i=0; i<entryObj.fileList.length; ++i) {
-                        co_name = entryObj.fileList[i].co_name
-                        file_id = entryObj.fileList[i].file_id
-                        fol_id = entryObj.fileList[i].fol_id
-                        file_name = entryObj.fileList[i].file_name
-                        file_extension = entryObj.fileList[i].file_extension
-                        reg_date = entryObj.fileList[i].reg_date
-                        file_path = entryObj.fileList[i].file_path
+                    console.log(obj)
+                    for(let i=0; i<obj.searchList.length; ++i) {
+                        co_name = obj.searchList[i].co_name
+                        file_id = obj.searchList[i].file_id
+                        fol_id = obj.searchList[i].fol_id
+                        file_name = obj.searchList[i].file_name
+                        file_extension = obj.searchList[i].file_extension
+                        reg_date = obj.searchList[i].reg_date
+                        file_path = obj.searchList[i].file_path
 
                         file_contents += `
                             <tr>
