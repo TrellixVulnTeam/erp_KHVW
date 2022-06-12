@@ -17,7 +17,8 @@ searchListLoad = (co_id, value) => new Promise((resolve, reject) => {
     LEFT JOIN files_text ft ON f.file_id = ft.file_id
     LEFT JOIN company c ON f.co_id = c.co_id
     WHERE f.co_id = ${co_id} AND (file_text LIKE '%${value}%' OR file_name LIKE '%${value}%') 
-    LIMIT 0, 50`
+    LIMIT 0, 20`
+    
 
     db.query(sql, (err, rows) => {  
         resolve(rows)
