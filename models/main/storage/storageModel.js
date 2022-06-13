@@ -7,18 +7,19 @@ folderListLoad = (co_id, fol_id) => new Promise((resolve, reject) => {
 })
 
 fileListLoad = (co_id, fol_id) => new Promise((resolve, reject) => {
-    db.query(`SELECT file_id, f.co_id, c.co_name, fol_id, file_path, file_name, file_extension, f.reg_date FROM files f LEFT JOIN company c ON c.co_id = f.co_id WHERE f.co_id = ? AND fol_id = ? AND f.del_state = 1`, [co_id, fol_id], (err, rows, fields) => {
+    db.query(`SELECT file_id, f.co_id, c.co_name, fol_id, file_path, file_name, file_extension, f.reg_date FROM files f INNER JOIN company c ON c.co_id = f.co_id WHERE f.co_id = ? AND fol_id = ? AND f.del_state = 1`, [co_id, fol_id], (err, rows, fields) => {
         resolve(rows)
     })
 })
 
 searchListLoad = (co_id, value) => new Promise((resolve, reject) => {
     const sql = `SELECT f.co_id, c.co_name ,f.file_id, file_path, file_name, file_extension, f.reg_date FROM files f
-    LEFT JOIN files_text ft ON f.file_id = ft.file_id
-    LEFT JOIN company c ON f.co_id = c.co_id
+    INNER JOIN files_text ft ON f.file_id = ft.file_id
+    INNER JOIN company c ON f.co_id = c.co_id
     WHERE f.co_id = ${co_id} AND (file_text LIKE '%${value}%' OR file_name LIKE '%${value}%') 
-    LIMIT 0, 20`
+    LIMIT 0, 10`
     
+    console.log(sql)
 
     db.query(sql, (err, rows) => {  
         resolve(rows)
