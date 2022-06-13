@@ -53,7 +53,7 @@ window.addEventListener("keyup", () => {
                         fol_id = obj.fileList[i].fol_id
                         file_name = obj.fileList[i].file_name
                         file_extension = obj.fileList[i].file_extension
-                        file_path = obj.fileList[i].file_path
+                        file_path = obj.file_path[i]
                         reg_date = obj.fileList[i].reg_date
                         
                         file_contents += `
