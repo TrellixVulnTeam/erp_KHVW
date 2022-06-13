@@ -1,4 +1,6 @@
 const db = require('../../../config/db')
+const PathMaker = require('../../common/pathMakerModel')
+
 
 folderListLoad = (co_id, fol_id) => new Promise((resolve, reject) => {
     db.query(`SELECT  co_id, fol_id, fol_name, reg_date FROM folder WHERE co_id = ? AND fol_parent_id = ? AND del_state = 1`, [co_id, fol_id],  (err, rows, fields) => {
@@ -12,15 +14,16 @@ fileListLoad = (co_id, fol_id) => new Promise((resolve, reject) => {
     })
 })
 
-searchListLoad = (co_id, value) => new Promise((resolve, reject) => {
-    const sql = `SELECT f.co_id, c.co_name ,f.file_id, file_path, file_name, file_extension, f.reg_date FROM files f
+searchListLoad = (co_id, value, page) => new Promise((resolve, reject) => {
+    
+    page = page * 20
+    
+    sql = `SELECT f.co_id, c.co_name, f.file_id, file_name, file_extension, f.reg_date FROM files f
     INNER JOIN files_text ft ON f.file_id = ft.file_id
     INNER JOIN company c ON f.co_id = c.co_id
     WHERE f.co_id = ${co_id} AND (file_text LIKE '%${value}%' OR file_name LIKE '%${value}%') 
-    LIMIT 0, 50`
+    LIMIT ${page}, 20`
     
-    console.log(sql)
-
     db.query(sql, (err, rows) => {  
         resolve(rows)
     })
@@ -38,10 +41,18 @@ module.exports = {
         }) 
     },
 
-    search : async(co_id, value) => {
+    search : async(co_id, value, page) => {
         searchObj = {
-            searchList : await searchListLoad(co_id, value)
+            searchList : await searchListLoad(co_id, value, page)
         }
+
+        pathList = []
+        
+        for(let i=0; i<searchObj.searchList.length; ++i ) {
+            pathList[i] = await PathMaker.pathMaker(searchObj.searchList[i].file_id) 
+        }
+
+        searchObj.file_path = pathList 
 
         return new Promise((resolve, reject) => {
             resolve(searchObj)

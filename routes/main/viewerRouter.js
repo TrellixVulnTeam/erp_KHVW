@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../../config/db')
 
-const PathMaker = require('../../models/main/viewer/viewerModel')
+const PathMaker = require('../../models/common/pathMakerModel')
 
 router.get("/:file_extension/:file_id", (req, res) => {
     const {file_extension, file_id} = req.params

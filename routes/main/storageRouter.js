@@ -1,5 +1,4 @@
 const express = require('express')
-const db = require('../../config/db')
 const router = express.Router()
 const Entry = require('../../models/main/storage/storageModel')
 
@@ -13,9 +12,9 @@ router.get("/:co_id/:fol_id", (req, res) => {
   })
 })
 
-router.post("/:co_id/:fol_id/ajax", (req, res) => {  
+router.post("/:co_id/:fol_id/:page/ajax", (req, res) => {  
   const {value} = req.body
-  const {co_id, fol_id} = req.params
+  const {co_id, fol_id, page} = req.params
 
   if(value == "") { 
     
@@ -25,10 +24,10 @@ router.post("/:co_id/:fol_id/ajax", (req, res) => {
     })
   
   } else {
-    
-    Entry.search(co_id, value).then(searchObj => {
+
+    Entry.search(co_id, value, page).then(searchObj => {
       searchObj.type = "search"
-      res.json(searchObj) 
+      res.json(searchObj)
     })
   }
 })
