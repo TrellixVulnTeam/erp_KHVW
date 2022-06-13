@@ -28,7 +28,6 @@ router.post("/:co_id/:fol_id/ajax", (req, res) => {
     
     Entry.search(co_id, value).then(searchObj => {
       searchObj.type = "search"
-      console.log(searchObj)
       res.json(searchObj) 
     })
   }
